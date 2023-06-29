@@ -7,6 +7,15 @@
 
 # useMemo
 
-1.
+1. Avoid complex re-calculations
+2. Solve referential equality problems
 
 # useCallback
+
+1. Solve referential equality problems
+
+---
+
+1. Shallow compare
+2. Referential equality
+3. Deep compare
