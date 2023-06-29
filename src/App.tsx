@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useMemo } from "react";
+import "./App.css";
+import { Item } from "./components/Item";
 
 function App() {
+  const [items, setItems] = useState<string[]>([]);
+
+  const [newItem, setNewItem] = useState<string>("");
+
+  function addItemToList() {
+    setItems([...items, `Item ${items.length}`]);
+  }
+
+  const countItemsWithOne = useMemo(() => {
+    return items.filter((item) => item.includes("1")).length;
+  }, [items]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <input
+          type="text"
+          onChange={(e) => setNewItem(e.target.value)}
+          value={newItem}
+        />
+        <button onClick={addItemToList}>Add Item</button>
+        <ul>
+          {items.map((item) => {
+            return <Item key={item} title={item} />;
+          })}
+        </ul>
+        <p>Count: {countItemsWithOne}</p>
+      </div>
+    </>
   );
 }
 
